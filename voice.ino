@@ -6,6 +6,8 @@
  *
  * Forked from https://github.com/vidarh/SAM
  */
+#include "sam.h"
+#include "reciter.h"
 
 void setup()
 {
@@ -27,13 +29,17 @@ void loop()
 			continue;
 		if (c == '\n')
 		{
-			input[len++] = 0x98; // yeah WTF
+			input[len++] = '['; // yeah WTF
 			input[len++] = '\0';
 			break;
 		}
 
-		input[len++] = c;
+		input[len++] = toupper(c);
 	}
-}
 
+	TextToPhonemes(input);
+	Serial.println(input);
+
+	SAMMain();
+}
 

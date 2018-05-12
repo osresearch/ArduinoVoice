@@ -49,11 +49,12 @@ unsigned char phonemeLengthOutput[60]; //tab47416
 
 
 // contains the final soundbuffer
-// one second of output
+// two second of output
 int bufferpos=0;
-char buffer[22050];
+char buffer[22050*2];
 
 
+/*
 void SetInput(char *_input)
 {
 	int i, l;
@@ -63,6 +64,7 @@ void SetInput(char *_input)
 		input[i] = _input[i];
 	input[l] = 0;
 }
+*/
 
 void SetSpeed(unsigned char _speed) {speed = _speed;};
 void SetPitch(unsigned char _pitch) {pitch = _pitch;};
@@ -644,7 +646,7 @@ void AdjustLengths() {
 			index = phonemeindex[X];
 
 			// test for fricative/unvoiced or not voiced
-			if(!(flags[index] & FLAG_FRICATIVE) || (flags[index] & FLAG_VOICED)) {     //nochmal �berpr�fen
+			if(!(flags[index] & FLAG_FRICATIVE) || (flags[index] & FLAG_VOICED)) {     //nochmal überprüfen
 				unsigned char A = phonemeLength[X];
 				// change phoneme length to (length * 1.5) + 1
                 drule_pre("Lengthen <FRICATIVE> or <VOICED> between <VOWEL> and <PUNCTUATION> by 1.5",X);
