@@ -15,3 +15,4 @@ unsigned char CreateTransitions();
 #define FALLING_INFLECTION (255)
 
 #endif
+
