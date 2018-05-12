@@ -2,6 +2,7 @@
 //#include <string.h>
 //#include <stdlib.h>
 
+#include "sam.h"
 #include "render.h"
 #include "rendertabs.h"
 
@@ -54,7 +55,7 @@ extern char buffer[];
 
 
 //timetable for more accurate c64 simulation
-int timetable[5][5] =
+const int timetable[5][5] =
 {
 	{162, 167, 167, 127, 128},
 	{226, 60, 60, 0, 0},

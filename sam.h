@@ -18,6 +18,8 @@ int SAMMain();
 char* GetBuffer();
 int GetBufferLength();
 
+#define MAX_SAMPLES (22050*4)
+
 extern char input[];
 
 //char input[]={"/HAALAOAO MAYN NAAMAEAE IHSTT SAEBAASTTIHAAN \x9b\x9b\0"};

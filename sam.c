@@ -49,9 +49,10 @@ unsigned char phonemeLengthOutput[60]; //tab47416
 
 
 // contains the final soundbuffer
-// two second of output
+// original had ten second of output
 int bufferpos=0;
-char buffer[22050*2];
+char buffer[MAX_SAMPLES];
+//char buffer[1024];
 
 
 /*
