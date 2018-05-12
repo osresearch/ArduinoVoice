@@ -83,9 +83,16 @@ void Write(unsigned char p, unsigned char Y, unsigned char value)
 // linearly interpolate values
 void interpolate(unsigned char width, unsigned char table, unsigned char frame, unsigned char mem53)
 {
-    unsigned char sign      = ((char)(mem53) < 0);
-    unsigned char remainder = abs((char)mem53) % width;
-    unsigned char div       = (unsigned char)((char)(mem53) / width);
+    unsigned char sign      = 0;
+	int mem53i = (signed char) mem53;
+	if (mem53i < 0)
+	{
+		sign = 1;
+		mem53i = -mem53i;
+	}
+
+    unsigned char remainder = mem53i % width;
+    unsigned char div       = (unsigned char)(mem53i / width);
 
     unsigned char error = 0;
     unsigned char pos   = width;

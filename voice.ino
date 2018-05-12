@@ -19,6 +19,10 @@
 void setup()
 {
 	Serial.begin(115200);
+
+	strcpy(input, "HELLO[");
+	TextToPhonemes(input);
+	SAMMain();
 }
 
 
@@ -34,7 +38,6 @@ static inline char hexdigit(int x)
 
 void loop()
 {
-	extern char input[];
 	unsigned len = 0;
 
 	Serial.print("> ");
@@ -68,8 +71,8 @@ void loop()
 	for(int i = 0 ; i < samples ; i++)
 	{
 		// esp32
-		dac_out_voltage(DAC_CHANNEL_1, 255 - buf[i]);
-		delayMicroseconds(2*1000000/22000);
+		dac_out_voltage(DAC_CHANNEL_1, buf[i]);
+		delayMicroseconds(1000000/44000);
 	}
 
 	if(0)
