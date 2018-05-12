@@ -18,9 +18,17 @@ int SAMMain();
 char* GetBuffer();
 int GetBufferLength();
 
-#define MAX_SAMPLES (22050*4)
-
+// setup the translation
 extern char input[];
+extern unsigned char speed;
+extern unsigned char pitch;
+extern int singmode;
+
+// contains the final soundbuffer
+#define MAX_SAMPLES (22050*4)
+extern int bufferpos;
+extern unsigned char buffer[];
+
 
 //char input[]={"/HAALAOAO MAYN NAAMAEAE IHSTT SAEBAASTTIHAAN \x9b\x9b\0"};
 //unsigned char input[]={"/HAALAOAO \x9b\0"};
@@ -40,6 +48,16 @@ extern char input[];
 //unsigned char input[]={" SSHFTHPTKCH/H \x9b\0"};
 
 //unsigned char input[]={" EYAYOYAWOWUW ULUMUNQ YXWXRXLX/XDX\x9b\0"};
+
+extern unsigned char stress[];
+extern unsigned char phonemeLength[];
+extern unsigned char phonemeindex[];
+
+extern unsigned char phonemeIndexOutput[];
+extern unsigned char stressOutput[];
+extern unsigned char phonemeLengthOutput[];
+
+
 
 #ifdef __cplusplus
 };

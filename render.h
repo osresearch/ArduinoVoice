@@ -14,5 +14,17 @@ unsigned char CreateTransitions();
 #define RISING_INFLECTION (1)
 #define FALLING_INFLECTION (255)
 
+extern unsigned char pitches[];
+
+extern unsigned char frequency1[];
+extern unsigned char frequency2[];
+extern unsigned char frequency3[];
+
+extern unsigned char amplitude1[];
+extern unsigned char amplitude2[];
+extern unsigned char amplitude3[];
+
+extern unsigned char sampledConsonantFlag[];
+
 #endif
 

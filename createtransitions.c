@@ -1,6 +1,8 @@
 //#include <stdio.h>
 #include <stdlib.h>
+#include "sam.h"
 #include "render.h"
+#include "rendertabs.h"
 
 // CREATE TRANSITIONS
 //
@@ -35,27 +37,6 @@
 // The exception to this is the Pitch[] parameter, which is interpolates the
 // pitch from the center of the current phoneme to the center of the next
 // phoneme.
-
-// From render.c
-extern unsigned char phonemeIndexOutput[60]; //tab47296
-extern unsigned char phonemeLengthOutput[60]; //tab47416
-
-// from RenderTabs.h
-extern unsigned char blendRank[];
-extern unsigned char outBlendLength[];
-extern unsigned char inBlendLength[];
-extern unsigned char pitches[];
-
-extern unsigned char Read(unsigned char p, unsigned char Y);
-extern void Write(unsigned char p, unsigned char Y, unsigned char value);
-
-extern unsigned char frequency1[256];
-extern unsigned char frequency2[256];
-extern unsigned char frequency3[256];
-
-extern unsigned char amplitude1[256];
-extern unsigned char amplitude2[256];
-extern unsigned char amplitude3[256];
 
 //written by me because of different table positions.
 // mem[47] = ...

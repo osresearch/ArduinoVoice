@@ -6,23 +6,8 @@
 #include "render.h"
 #include "rendertabs.h"
 
-//#include "debug.h"
-//extern int debug;
-
 unsigned char wait1 = 7;
 unsigned char wait2 = 6;
-
-//extern unsigned char A, X, Y;
-//extern unsigned char mem44;
-
-extern unsigned char speed;
-extern unsigned char pitch;
-extern int singmode;
-
-
-extern unsigned char phonemeIndexOutput[60]; //tab47296
-extern unsigned char stressOutput[60]; //tab47365
-extern unsigned char phonemeLengthOutput[60]; //tab47416
 
 unsigned char pitches[256]; // tab43008
 
@@ -42,15 +27,13 @@ void AddInflection(unsigned char mem48, unsigned char phase1, unsigned char X);
 //return = hibyte(mem39212*mem39213) <<  1
 unsigned char trans(unsigned char a, unsigned char b)
 {
-    return ((a * b) >> 8) << 1;
+	unsigned int ai = a;
+	unsigned int bi = b;
+
+    return ((ai*bi) >> 8) << 1;
 }
 
 
-
-
-// contains the final soundbuffer
-extern int bufferpos;
-extern char buffer[];
 
 
 
@@ -285,6 +268,9 @@ void AssignPitchContour()
 // 3. Offset the pitches by the fundamental frequency.
 //
 // 4. Render the each frame.
+extern void serial_print(int val,int width);
+extern void serial_println();
+
 void Render()
 {
 	if (phonemeIndexOutput[0] == 255) return; //exit if no data
@@ -300,6 +286,22 @@ void Render()
         PrintOutput(sampledConsonantFlag, frequency1, frequency2, frequency3, amplitude1, amplitude2, amplitude3, pitches);
     }
 */
+	for(int i=0 ; i < 255 ; i++)
+	{
+		if (frequency1[i]  == 0)
+			break;
+		serial_print(sampledConsonantFlag[i], 8);
+		serial_print(amplitude1[i], 8);
+		serial_print(frequency1[i], 8);
+
+		serial_print(amplitude2[i], 8);
+		serial_print(frequency2[i], 8);
+
+		serial_print(amplitude3[i], 8);
+		serial_print(frequency3[i], 8);
+		serial_print(pitches[i], 8);
+		serial_println();
+	}
 
 
     ProcessFrames(t);
@@ -345,13 +347,13 @@ void SetMouthThroat(unsigned char mouth, unsigned char throat)
 	unsigned char newFrequency = 0;
 
 	// mouth formants (F1) 5..29
-	unsigned char mouthFormants5_29[30] = {
+	static const unsigned char mouthFormants5_29[30] = {
 		0, 0, 0, 0, 0, 10,
 		14, 19, 24, 27, 23, 21, 16, 20, 14, 18, 14, 18, 18,
 		16, 13, 15, 11, 18, 14, 11, 9, 6, 6, 6};
 
 	// throat formants (F2) 5..29
-	unsigned char throatFormants5_29[30] = {
+	static const unsigned char throatFormants5_29[30] = {
 	255, 255,
 	255, 255, 255, 84, 73, 67, 63, 40, 44, 31, 37, 45, 73, 49,
 	36, 30, 51, 37, 29, 69, 24, 50, 30, 24, 83, 46, 54, 86,
@@ -359,10 +361,10 @@ void SetMouthThroat(unsigned char mouth, unsigned char throat)
 
 	// there must be no zeros in this 2 tables
 	// formant 1 frequencies (mouth) 48..53
-	unsigned char mouthFormants48_53[6] = {19, 27, 21, 27, 18, 13};
+	static const unsigned char mouthFormants48_53[6] = {19, 27, 21, 27, 18, 13};
        
 	// formant 2 frequencies (throat) 48..53
-	unsigned char throatFormants48_53[6] = {72, 39, 31, 43, 30, 34};
+	static const unsigned char throatFormants48_53[6] = {72, 39, 31, 43, 30, 34};
 
 	unsigned char pos = 5;
 

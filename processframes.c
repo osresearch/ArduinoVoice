@@ -1,23 +1,6 @@
+#include "sam.h"
 #include "render.h"
-
-extern unsigned char speed;
-
-// From RenderTabs.h
-extern unsigned char multtable[];
-extern unsigned char sinus[];
-extern unsigned char rectangle[];
-
-// From render.c
-extern unsigned char pitches[256]; 
-extern unsigned char sampledConsonantFlag[256]; // tab44800
-extern unsigned char amplitude1[256];
-extern unsigned char amplitude2[256];
-extern unsigned char amplitude3[256];
-extern unsigned char frequency1[256];
-extern unsigned char frequency2[256];
-extern unsigned char frequency3[256];
-
-extern void Output(int index, unsigned char A);
+#include "rendertabs.h"
 
 static void CombineGlottalAndFormants(unsigned char phase1, unsigned char phase2, unsigned char phase3, unsigned char Y)
 {

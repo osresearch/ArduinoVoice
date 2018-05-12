@@ -24,8 +24,6 @@ unsigned char mouth = 128;
 unsigned char throat = 128;
 int singmode = 0;
 
-extern int debug;
-
 unsigned char mem39;
 unsigned char mem44;
 unsigned char mem47;
@@ -51,7 +49,7 @@ unsigned char phonemeLengthOutput[60]; //tab47416
 // contains the final soundbuffer
 // original had ten second of output
 int bufferpos=0;
-char buffer[MAX_SAMPLES];
+unsigned char buffer[MAX_SAMPLES];
 //char buffer[1024];
 
 
@@ -133,6 +131,13 @@ int SAMMain() {
 	InsertBreath(mem59);
 
 	//if (debug) PrintPhonemes(phonemeindex, phonemeLength, stress);
+	for(int i = 0 ; i < 255 && phonemeindex[i] != 0xFF; i++)
+	{
+		serial_print(phonemeindex[i], 8);
+		serial_print(phonemeLength[i], 8);
+		serial_print(stress[i]);
+		serial_println();
+	}
 
 	PrepareOutput();
 	return 1;

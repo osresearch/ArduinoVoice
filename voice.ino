@@ -22,6 +22,16 @@ void setup()
 }
 
 
+static inline char hexdigit(int x)
+{
+	x &= 0xF;
+	if (0 <= x && x <= 9)
+		return '0' + x;
+	else
+		return 'A' + x - 0xA;
+}
+
+
 void loop()
 {
 	extern char input[];
@@ -49,15 +59,42 @@ void loop()
 
 	SAMMain();
 
-	char * buf = GetBuffer();
-	int samples = GetBufferLength() / 50;
+	const uint8_t * buf = (const uint8_t *) GetBuffer();
+	int samples = GetBufferLength() / 50;  // why 50?
+
 	Serial.print("samples=");
 	Serial.println(samples);
 
 	for(int i = 0 ; i < samples ; i++)
 	{
 		// esp32
-		dac_out_voltage(DAC_CHANNEL_1, buf[i]);
+		dac_out_voltage(DAC_CHANNEL_1, 255 - buf[i]);
+		delayMicroseconds(2*1000000/22000);
+	}
+
+	if(0)
+	for(int i = 0 ; i < samples ; i++)
+	{
+		Serial.print(hexdigit(buf[i] >> 4));
+		Serial.print(hexdigit(buf[i] >> 0));
+		if((i % 16) == 15)
+			Serial.println();
+		else
+			Serial.print(' ');
 	}
 }
 
+
+extern "C" {
+extern void serial_print(int val, int width);
+extern void serial_println();
+};
+
+void serial_print(int val, int width)
+{
+	Serial.printf("%8d", val);
+}
+void serial_println()
+{
+	Serial.println();
+}
