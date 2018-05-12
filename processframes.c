@@ -29,9 +29,9 @@ void ProcessFrames(unsigned char mem48)
 {
 
     unsigned char speedcounter = 72;
-	unsigned char phase1 = 0;
+    unsigned char phase1 = 0;
     unsigned char phase2 = 0;
-	unsigned char phase3 = 0;
+    unsigned char phase3 = 0;
     unsigned char mem66;
     
     unsigned char Y = 0;
@@ -39,30 +39,30 @@ void ProcessFrames(unsigned char mem48)
     unsigned char glottal_pulse = pitches[0];
     unsigned char mem38 = glottal_pulse - (glottal_pulse >> 2); // mem44 * 0.75
 
-	while(mem48) {
-		unsigned char flags = sampledConsonantFlag[Y];
-		
-		// unvoiced sampled phoneme?
+    while(mem48) {
+        unsigned char flags = sampledConsonantFlag[Y];
+        
+        // unvoiced sampled phoneme?
         if(flags & 248) {
-			RenderSample(&mem66, flags,Y);
-			// skip ahead two in the phoneme buffer
-			Y += 2;
-			mem48 -= 2;
+            RenderSample(&mem66, flags,Y);
+            // skip ahead two in the phoneme buffer
+            Y += 2;
+            mem48 -= 2;
             speedcounter = speed;
-		} else {
+        } else {
             CombineGlottalAndFormants(phase1, phase2, phase3, Y);
 
-			speedcounter--;
-			if (speedcounter == 0) { 
+            speedcounter--;
+            if (speedcounter == 0) { 
                 Y++; //go to next amplitude
                 // decrement the frame count
                 mem48--;
-                if(mem48 == 0) 	return;
+                if(mem48 == 0)  return;
                 speedcounter = speed;
             }
          
             --glottal_pulse;
-		
+        
             if(glottal_pulse != 0) {
                 // not finished with a glottal pulse
 
@@ -92,6 +92,6 @@ void ProcessFrames(unsigned char mem48)
         phase1 = 0;
         phase2 = 0;
         phase3 = 0;
-	}
+    }
 }
 

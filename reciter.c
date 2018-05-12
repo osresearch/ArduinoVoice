@@ -10,8 +10,8 @@ static unsigned char inputtemp[256];   // secure copy of input tab36096
 /* Retrieve flags for character at mem59-1 */
 unsigned char Code37055(unsigned char npos, unsigned char mask)
 {
-	X = npos;
-	return tab36376[inputtemp[X]] & mask;
+    X = npos;
+    return tab36376[inputtemp[X]] & mask;
 }
 
 unsigned int match(const char * str) {
@@ -25,13 +25,13 @@ unsigned int match(const char * str) {
 }
 
 unsigned char GetRuleByte(unsigned short mem62, unsigned char Y) {
-	unsigned int address = mem62;
-	if (mem62 >= 37541) {
-		address -= 37541;
-		return rules2[address+Y];
-	}
-	address -= 32000;
-	return rules[address+Y];
+    unsigned int address = mem62;
+    if (mem62 >= 37541) {
+        address -= 37541;
+        return rules2[address+Y];
+    }
+    address -= 32000;
+    return rules[address+Y];
 }
 
 int handle_ch2(unsigned char ch, unsigned char mem) {
@@ -76,29 +76,29 @@ int handle_ch(unsigned char A, unsigned char mem) {
 
 
 int TextToPhonemes(char *input) {
-	unsigned char mem56;      //output position for phonemes
-	unsigned char mem58;
-	unsigned char mem60;
-	unsigned char mem61;
-	unsigned short mem62;     // memory position of current rule
+    unsigned char mem56;      //output position for phonemes
+    unsigned char mem58;
+    unsigned char mem60;
+    unsigned char mem61;
+    unsigned short mem62;     // memory position of current rule
 
-	unsigned char mem64;      // position of '=' or current character
-	unsigned char mem65;     // position of ')'
-	unsigned char mem66;     // position of '('
+    unsigned char mem64;      // position of '=' or current character
+    unsigned char mem65;     // position of ')'
+    unsigned char mem66;     // position of '('
 
-	inputtemp[0] = ' ';
+    inputtemp[0] = ' ';
 
-	// secure copy of input
-	// because input will be overwritten by phonemes
-	X = 0;
-	do {
-		A = input[X] & 127;
-		if ( A >= 112) A = A & 95;
-		else if ( A >= 96) A = A & 79;
-		inputtemp[++X] = A;
-	} while (X < 255);
-	inputtemp[255] = 27;
-	mem56 = mem61 = 255;
+    // secure copy of input
+    // because input will be overwritten by phonemes
+    X = 0;
+    do {
+        A = input[X] & 127;
+        if ( A >= 112) A = A & 95;
+        else if ( A >= 96) A = A & 79;
+        inputtemp[++X] = A;
+    } while (X < 255);
+    inputtemp[255] = 27;
+    mem56 = mem61 = 255;
 
     unsigned char mem57;
 pos36554:
@@ -139,36 +139,36 @@ pos36554:
         
     if(!(mem57 & 128)) return 0;
         
-	// go to the right rules for this character.
+    // go to the right rules for this character.
     X = mem64 - 'A';
     mem62 = tab37489[X] | (tab37515[X]<<8);
 
 pos36700:
-	// find next rule
-	while ((GetRuleByte(++mem62, 0) & 128) == 0);
-	unsigned char Y = 0;
-	while(GetRuleByte(mem62, ++Y) != '(');
-	mem66 = Y;
+    // find next rule
+    while ((GetRuleByte(++mem62, 0) & 128) == 0);
+    unsigned char Y = 0;
+    while(GetRuleByte(mem62, ++Y) != '(');
+    mem66 = Y;
     while(GetRuleByte(mem62, ++Y) != ')');
-	mem65 = Y;
-	while((GetRuleByte(mem62, ++Y) & 127) != '=');
-	mem64 = Y;
+    mem65 = Y;
+    while((GetRuleByte(mem62, ++Y) & 127) != '=');
+    mem64 = Y;
 
-	
-	mem60 = X = mem61;
-	// compare the string within the bracket
-	Y = mem66 + 1;
+    
+    mem60 = X = mem61;
+    // compare the string within the bracket
+    Y = mem66 + 1;
 
-	while(1) {
-		if (GetRuleByte(mem62, Y) != inputtemp[X]) goto pos36700;
-		if(++Y == mem65) break;
-		mem60 = ++X;
-	}
+    while(1) {
+        if (GetRuleByte(mem62, Y) != inputtemp[X]) goto pos36700;
+        if(++Y == mem65) break;
+        mem60 = ++X;
+    }
 
 
     // the string in the bracket is correct
 
-	unsigned char mem59 = mem61;
+    unsigned char mem59 = mem61;
 
     while(1) {
         while(1) {
@@ -292,6 +292,6 @@ pos37184:
             if (r == 0) mem58 = X;
         } while (r == 0);
     } while (A == '%');
-	return 0;
+    return 0;
 }
 
