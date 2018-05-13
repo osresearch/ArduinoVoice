@@ -130,6 +130,7 @@ int SAMMain() {
     InsertBreath(mem59);
 
     //if (debug) PrintPhonemes(phonemeindex, phonemeLength, stress);
+/*
     for(int i = 0 ; i < 255 && phonemeindex[i] != 0xFF; i++)
     {
         serial_print(phonemeindex[i], 8);
@@ -137,6 +138,7 @@ int SAMMain() {
         serial_print(stress[i]);
         serial_println();
     }
+*/
 
     PrepareOutput();
     return 1;
