@@ -27,7 +27,6 @@ static void CombineGlottalAndFormants(unsigned char phase1, unsigned char phase2
 //
 void ProcessFrames(unsigned char frame_count)
 {
-
     unsigned char speedcounter = 72;
     unsigned char phase1 = 0;
     unsigned char phase2 = 0;
@@ -36,15 +35,16 @@ void ProcessFrames(unsigned char frame_count)
     
     unsigned char Y = 0;
 
-    unsigned char glottal_pulse = pitches[0];
+    unsigned char glottal_pulse = pitches[Y];
     unsigned char glottal_pulse_75 = glottal_pulse - (glottal_pulse >> 2); // mem44 * 0.75
 
-    while(frame_count) {
+    while(frame_count)
+    {
         unsigned char flags = sampledConsonantFlag[Y];
         
         // unvoiced sampled phoneme?
         if(flags & 248) {
-            RenderSample(&mem66, flags,Y);
+            RenderSample(&mem66, flags, Y);
             // skip ahead two in the phoneme buffer
             Y += 2;
             frame_count -= 2;
@@ -56,8 +56,8 @@ void ProcessFrames(unsigned char frame_count)
             if (speedcounter == 0) { 
                 Y++; //go to next amplitude
                 // decrement the frame count
-                frame_count--;
-                if(frame_count == 0)  return;
+                if(--frame_count == 0)
+                    return;
                 speedcounter = speed;
             }
          
@@ -85,7 +85,7 @@ void ProcessFrames(unsigned char frame_count)
         }
 
         glottal_pulse = pitches[Y];
-	glottal_pulse_75 = glottal_pulse - (glottal_pulse >> 2); // mem44 * 0.75
+        glottal_pulse_75 = glottal_pulse - (glottal_pulse >> 2); // mem44 * 0.75
 
         // reset the formant wave generators to keep them in 
         // sync with the glottal pulse

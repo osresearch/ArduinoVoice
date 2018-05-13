@@ -18,8 +18,8 @@ enum {
 
 char input[256]; //tab39445
 //standard sam sound
-unsigned char speed = 72;
-unsigned char pitch = 64;
+unsigned char speed = 64;
+unsigned char pitch = 72;
 unsigned char mouth = 128;
 unsigned char throat = 128;
 int singmode = 0;

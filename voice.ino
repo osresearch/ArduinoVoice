@@ -72,7 +72,7 @@ void loop()
 	{
 		// esp32
 		dac_out_voltage(DAC_CHANNEL_1, buf[i]);
-		delayMicroseconds(1000000/44000);
+		delayMicroseconds(1000000/48000);
 	}
 
 	if(0)
